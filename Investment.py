@@ -1,4 +1,7 @@
+# This is not a library that comes pre installed in python. You can easily add it by typing `pip install matplotlib` in your command line/ terminal once python is installed.
+# This line allows you to use those functions that let me graph.
 import matplotlib.pyplot as plt
+# This imports all of the code from the Future_Value.py file so I can use anything I built ther in here.
 import Future_Value as fv
 
 def main():
