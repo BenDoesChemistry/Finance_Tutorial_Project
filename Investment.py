@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import Future_Value as fv
 
 def main():
-    Principle = 6000
-    Number_of_years = 30
+    Principle = 100000
+    Number_of_years = 10
     Investment_Percent = 10
-    Added_per_quarter = 800
+    Added_per_quarter = 0
 
     Investment = fv.Future_Value(Principle,Investment_Percent,Added_per_quarter,Number_of_years,4)
     High_Interest_Savings = fv.Future_Value(Principle,5,Added_per_quarter,Number_of_years,4)
