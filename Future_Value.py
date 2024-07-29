@@ -8,6 +8,7 @@ class Future_Value():
         self.Payment_per_period = Payment_per_period
         self.Number_periods = Number_periods
         self.Matches_per_period = Matches_per_period
+        self.Total_contribution = Matches_per_period * Number_periods * Payment_per_period
         self.Time_List = [0]
         self.Future_value_list = []
         self._calc_values()
@@ -51,3 +52,39 @@ if __name__ == "__main__":
     print(len(High_Interest_Savings.get_future_values()))
     print(len(High_Interest_Savings.get_time_range()))
     print(High_Interest_Savings.get_time_range())
+
+
+
+class Debt_Payoff:
+    # Note that the owed ammount should be passed in as a positive float and it is converted to a negative float later to indicate debt
+    def __init__(self,Owed_amount:float,Percent_interest:float,Payment_per_period:float,Matches_per_period:int):
+        self.Owed_amount = Owed_amount * -1
+        self.Values = [Owed_amount * -1]
+        self.Time_List = [0]
+        self.Percent_interest = Percent_interest
+        self.Payment_per_period = Payment_per_period
+        self.Matches_per_period = Matches_per_period
+        self.Periods = 0.0
+        self.Total_contribution = 0.0
+
+        self._calc_debt()
+
+    def _calc_debt(self):
+        Owed_accumulator = self.Owed_amount
+        rate_of_increase = 1 + (self.Percent_interest * .01) / self.Matches_per_period
+        rate_of_time = 1 / self.Matches_per_period
+        Time_Stamp = 0
+
+        # This handles the case where the ammount owed will not go down or will stay constant.
+        if rate_of_increase * self.Owed_amount  >= self.Payment_per_period:
+            print("This will never be paid off. Increase the Payed ammount.")
+            return None
+
+        while Owed_accumulator < 0:
+            Owed_accumulator = Owed_accumulator + self.Payment_per_period
+            Owed_accumulator = Owed_accumulator * rate_of_increase
+            Time_Stamp = Time_Stamp + rate_of_time
+            self.Time_List.append(Time_Stamp)
+            self.Values.append(Owed_accumulator)
+            self.Total_contribution = self.Total_contribution + self.Payment_per_period
+            self.Periods = self.Periods + rate_of_increase
